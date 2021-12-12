@@ -45,37 +45,27 @@ int main (int argc, char argv[], char * envp){ //,
 		
 		printf("myshell>> ");
 		scanf("%s",command); // 29[^\n]		
-        	printf("command :: %s\n" , command);
-		
+        	
 		// word 1
 	    	split=strtok(command,",");
 		command_p1 = split;
-		printf("pp : %s \n", command_p1);
 		
 		// word 2
 	    	word=split;
 	    	split=strtok(NULL,",");
 	    	command_p2 = split;
-		printf("pp : %s \n", command_p2);
 	    		
 	    	// word 3	
 	    	word=split;
 	    	split=strtok(NULL,",");
 		command_p3 = split;
-		printf("pp : %s \n", command_p3);
 		
 		// word 4	
 	    	word=split;
 	    	split=strtok(NULL,",");
-		command_p4 = split;
-		printf("pp : %s \n", command_p4);		
-		
-		printf(" p1 :: %s",command_p1);
-		if (command_p4 == NULL)
-			printf(" p4 is NULL\n");
+		command_p4 = split;		
 			
 		if(strcmp(command_p1, _bash) == 0 && command_p2 == NULL){
-			printf("Bash'a geciliyor...\n");
 			
 			char *newargv[1];
 		    	newargv[0] = "bash";
@@ -84,16 +74,11 @@ int main (int argc, char argv[], char * envp){ //,
 			int status;	
 			frk = fork();
 			if (frk == 0){
-				//printf("child pid : %d\n",getppid());
-				//sleep(5);
-				//printf("child pid after sleep: %d\n",getppid());	
-				printf("newargv ? : %s\n", newargv[0]);
 				status = execve("/bin/bash", newargv,NULL);
 				perror("exec2: execve failed\n");
 			}
 			else{	
 				wait(&status);
-				//printf("ppid : %d\n",getpid());
 			}	
 		}
 		
@@ -106,25 +91,17 @@ int main (int argc, char argv[], char * envp){ //,
 		      newargv[1] = command_p3;
 		      newargv[2] = NULL;
 
-		      printf("Ana program:getpid: %d  getpppid: %d\n", getpid(), getppid());
 		      int f;
 		      f= fork();
-		      if(f==0)
-		      {
-			  printf("Ana program: Exec calisti\n");
+		      if(f==0){
 			  i = execve("tekrar", newargv, envp);
 			  perror("exec2: execve failed\n");
 
-		      }
-		      else
-		      {
+		      }else{
 			  wait(&i); // forku bekle
 
-			  printf("Ana program: alt program bitirdi?\n");
-
 		      }
-				printf("Tekrar'a geciliyor...\n");
-			}
+		}
 		
 		else if(strcmp(command_p1, _islem) == 0  ){	
 			
@@ -135,25 +112,17 @@ int main (int argc, char argv[], char * envp){ //,
 		      newargv[1] = command_p3; 
 		      newargv[2] = command_p4;
 		      newargv[3] = NULL;
-		      printf("Ana program:getpid: %d  getpppid: %d\n", getpid(), getppid());
+		      
 		      int f;
 		      f= fork();
-		      if(f==0)
-		      {
-			  printf("Ana program: Exec calisti\n");
+		      if(f==0){
 			  i = execve("islem", newargv, envp);
 			  perror("exec2: execve failed\n");
 
-		      }
-		      else
-		      {
+		      }else{
 			  wait(&i); // forku bekle
-
-			  printf("Ana program: alt program bitirdi?\n");
-
 		      }
-				printf("Islem'e geciliyor...\n");
-			}
+		}
 		
 		else if(strcmp(command_p1, _yardim) == 0 && command_p2 == NULL){
 			printf("Shell'de calisan komutlar asagidadir...\n");
@@ -209,9 +178,5 @@ int main (int argc, char argv[], char * envp){ //,
 		
 	}
 	
-	 
-	
-	
-		
    return 0;
 }
