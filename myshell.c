@@ -26,6 +26,7 @@ int main (int argc, char argv[], char * envp){ //,
 	char _ls[]={'l','s','\0'};
 	char _cat[]={'c','a','t','\0'};
     	char _islem[]={'i','s','l','e','m','\0'};
+    	char _yardim[]={'!','y','a','r','d','i','m','\0'};
     	
     	char command[40];
 	char * split;
@@ -153,6 +154,19 @@ int main (int argc, char argv[], char * envp){ //,
 		      }
 				printf("Islem'e geciliyor...\n");
 			}
+		
+		else if(strcmp(command_p1, _yardim) == 0 && command_p2 == NULL){
+			printf("Shell'de calisan komutlar asagidadir...\n");
+			printf("!yardim\n");
+			printf("clear\n");
+			printf("ls\n");
+			printf("cat,[filename]\n");
+			printf("bash\n");
+			printf("tekrar,[char*],[int]\n");
+			printf("islem,[topla/cikar],[int],[int]\n");
+			printf("exit\n");
+			
+		}
 		
 		else if(strcmp(command_p1, _clear) == 0 && command_p2 == NULL){
 			clear();
