@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define clear() printf("\033[H\033[J")
 int main () {	//(int argc, char *argv[]){
 	
 	int i = 0;
@@ -13,7 +14,7 @@ int main () {	//(int argc, char *argv[]){
 	char _exit[]={'e','x','i','t','\0'};
 	char _bash[]={'b','a','s','h','\0'};
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
-	
+	char _clear[]={'c','l','e','a','r','\0'};
 	
     	char * split;
     	char * word;
@@ -60,6 +61,7 @@ int main () {	//(int argc, char *argv[]){
 			
 		if(strcmp(command_p1, _bash) == 0 && command_p2 == NULL){
 			printf("Bash'a geciliyor...\n");
+			
 				
 			/*frk = fork();
 			if (frk == 0){
@@ -72,9 +74,12 @@ int main () {	//(int argc, char *argv[]){
 			}*/	
 		}
 		
-		else if(strcmp(command_p1, _tekrar) == 0){
-			
+		else if(strcmp(command_p1, _tekrar) == 0){	
 			printf("Tekrar'a geciliyor...\n");
+		}
+		
+		else if(strcmp(command_p1, _clear) == 0 && command_p2 == NULL){
+			printf("\033[H\033[J");
 		}
 			
 		else if (strcmp(command_p1, _exit) == 0){
