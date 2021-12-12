@@ -1,9 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+#include <dirent.h>
 
 #define clear() printf("\033[H\033[J")
+
 int main () {	//(int argc, char *argv[]){
+	
+	struct dirent *d;
+	const char * dir = ".";
+	DIR *dh = opendir(dir);
 	
 	int i = 0;
 	int loop = 1; 
@@ -15,6 +22,7 @@ int main () {	//(int argc, char *argv[]){
 	char _bash[]={'b','a','s','h','\0'};
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
 	char _clear[]={'c','l','e','a','r','\0'};
+	char _ls[]={'l','s','\0'};
 	
     	char * split;
     	char * word;
@@ -79,7 +87,18 @@ int main () {	//(int argc, char *argv[]){
 		}
 		
 		else if(strcmp(command_p1, _clear) == 0 && command_p2 == NULL){
-			printf("\033[H\033[J");
+			clear();
+		}
+		
+		else if(strcmp(command_p1, _ls) == 0 && command_p2 == NULL){		
+			while ((d = readdir(dh)) != NULL)
+			{
+				if ( d->d_name[0] == '.')
+					continue;
+				printf("%s  ", d->d_name);
+				
+			}
+			printf("\n");	
 		}
 			
 		else if (strcmp(command_p1, _exit) == 0){
@@ -89,6 +108,7 @@ int main () {	//(int argc, char *argv[]){
 			printf("Yanlis bir komut girdiniz...\nKomut listesi icin /help yazabilirsiniz...\n");
 		
 	//}
+	
 	
 		
    return 0;
