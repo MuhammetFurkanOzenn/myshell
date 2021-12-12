@@ -25,6 +25,7 @@ int main (int argc, char argv[], char * envp){ //,
 	char _clear[]={'c','l','e','a','r','\0'};
 	char _ls[]={'l','s','\0'};
 	char _cat[]={'c','a','t','\0'};
+    	char _islem[]={'i','s','l','e','m','\0'};
     	
     	char command[40];
 	char * split;
@@ -122,6 +123,35 @@ int main (int argc, char argv[], char * envp){ //,
 
 		      }
 				printf("Tekrar'a geciliyor...\n");
+			}
+		
+		else if(strcmp(command_p1, _islem) == 0  ){	
+			
+		      char *newargv[3];
+		      int i;
+
+		      newargv[0] = command_p2; //topla /cikar
+		      newargv[1] = command_p3; 
+		      newargv[2] = command_p4;
+		      newargv[3] = NULL;
+		      printf("Ana program:getpid: %d  getpppid: %d\n", getpid(), getppid());
+		      int f;
+		      f= fork();
+		      if(f==0)
+		      {
+			  printf("Ana program: Exec calisti\n");
+			  i = execve("islem", newargv, envp);
+			  perror("exec2: execve failed\n");
+
+		      }
+		      else
+		      {
+			  wait(&i); // forku bekle
+
+			  printf("Ana program: alt program bitirdi?\n");
+
+		      }
+				printf("Islem'e geciliyor...\n");
 			}
 		
 		else if(strcmp(command_p1, _clear) == 0 && command_p2 == NULL){
