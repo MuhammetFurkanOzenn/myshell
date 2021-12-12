@@ -31,7 +31,7 @@ int strtoint( char* charnums)
 }
 
 
-int main (int argc, char *argv[]){
+int main (int argc, char *argv[],char * envp){
 	
 	
 	char _topla[]={'t','o','p','l','a','\0'};
@@ -42,7 +42,17 @@ int main (int argc, char *argv[]){
 	printf("Isleme geldik..\n");
 	printf("arg1 : %d   arg2 : %d\n",firstVal, secondVal);
 	if (strcmp(argv[0], _topla) == 0){	//topla ya da cikar
-		printf("topladayiz...");		
+		printf("topladayiz...");
+		char *newargv[3];
+	        int i;
+
+	        newargv[0] = argv[0]; //topla /cikar
+	        newargv[1] = argv[1]; 
+	        newargv[2] = argv[2];
+	        newargv[3] = NULL;
+	        
+		i = execve("topla", newargv, envp);
+				
 	}else if (strcmp(argv[0], _cikar) == 0){
 		printf("cikardayiz...");
 	}else{
