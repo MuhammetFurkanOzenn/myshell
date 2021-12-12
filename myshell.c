@@ -6,7 +6,7 @@
 
 #define clear() printf("\033[H\033[J")
 
-int main (int argc, char *argv[]){
+int main (int argc, char argv[], char * envp){ //, 
 	
 	struct dirent *d;
 	const char * dir = ".";
@@ -16,76 +16,114 @@ int main (int argc, char *argv[]){
 	int loop = 1; 
 	int id;
         int frk;
+        int _wait,status;
+        int exv;
 	
-	char command[40];
 	char _exit[]={'e','x','i','t','\0'};
 	char _bash[]={'b','a','s','h','\0'};
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
 	char _clear[]={'c','l','e','a','r','\0'};
 	char _ls[]={'l','s','\0'};
 	char _cat[]={'c','a','t','\0'};
-	
-    	char * split;
+    	
+    	char command[40];
+	char * split;
     	char * word;
     	char * command_p1;
     	char * command_p2;
     	char * command_p3;
     	char * command_p4;
-
-	//printf("%s %s\n",_exit, _bash);
         
-	//while (loop == 1){
+	while (loop == 1){
+		
+		command_p1 =NULL;
+		command_p2 =NULL;
+		command_p3 =NULL;
+		command_p4 =NULL;
 		
 		printf("myshell>> ");
-		scanf("%29[^\n]",command);
-		fflush(stdin);
-		fflush(stdout);
+		scanf("%s",command); // 29[^\n]		
         	printf("command :: %s\n" , command);
 		
 		// word 1
-	    	split=strtok(command," ");
+	    	split=strtok(command,",");
 		command_p1 = split;
 		printf("pp : %s \n", command_p1);
 		
 		// word 2
 	    	word=split;
-	    	split=strtok(NULL," ");
+	    	split=strtok(NULL,",");
 	    	command_p2 = split;
 		printf("pp : %s \n", command_p2);
 	    		
 	    	// word 3	
 	    	word=split;
-	    	split=strtok(NULL," ");
+	    	split=strtok(NULL,",");
 		command_p3 = split;
 		printf("pp : %s \n", command_p3);
 		
 		// word 4	
 	    	word=split;
-	    	split=strtok(NULL," ");
+	    	split=strtok(NULL,",");
 		command_p4 = split;
-		printf("pp : %s \n", command_p4);
+		printf("pp : %s \n", command_p4);		
 		
+		printf(" p1 :: %s",command_p1);
 		if (command_p4 == NULL)
 			printf(" p4 is NULL\n");
 			
 		if(strcmp(command_p1, _bash) == 0 && command_p2 == NULL){
 			printf("Bash'a geciliyor...\n");
 			
+			/*char *newargv[3];
+		    	newargv[0] = "bash";
+		    	newargv[1] = "NULL";
+		    	newargv[2] = "NULL";
+		    	newargv[3] = "NULL";
+		    	*/
 				
 			/*frk = fork();
 			if (frk == 0){
-				printf("child pid : %d\n",getppid());
-				sleep(5);
-				printf("child pid after sleep: %d\n",getppid());	
+				//printf("child pid : %d\n",getppid());
+				//sleep(5);
+				//printf("child pid after sleep: %d\n",getppid());	
+				printf("newargv ? : %s", newargv[0]);
+				execve("/bin/bash", newargv,NULL);
 			}
-			else{
-				printf("ppid : %d\n",getpid());
-			}*/	
+			else{	
+				_wait = wait(&status);
+				//printf("ppid : %d\n",getpid());
+			}	*/
 		}
 		
-		else if(strcmp(command_p1, _tekrar) == 0){	
-			printf("Tekrar'a geciliyor...\n");
-		}
+		else if(strcmp(command_p1, _tekrar) == 0  ){	
+			
+		      char *newargv[2];
+		      int i;
+
+		      newargv[0] = command_p2;
+		      newargv[1] = command_p3;
+		      newargv[2] = NULL;
+
+		      printf("Ana program:getpid: %d  getpppid: %d\n", getpid(), getppid());
+		      int f;
+		      f= fork();
+		      if(f==0)
+		      {
+			  printf("Ana program: Exec calisti\n");
+			  i = execve("tekrar", newargv, envp);
+			  perror("exec2: execve failed\n");
+
+		      }
+		      else
+		      {
+			  wait(&i); // forku bekle
+
+			  printf("Ana program: alt program bitirdi?\n");
+
+		      }
+				printf("Tekrar'a geciliyor...\n");
+			}
 		
 		else if(strcmp(command_p1, _clear) == 0 && command_p2 == NULL){
 			clear();
@@ -118,12 +156,15 @@ int main (int argc, char *argv[]){
 		}
 			
 		else if (strcmp(command_p1, _exit) == 0){
-			//break;
+			break;
 		}
 		else
 			printf("Yanlis bir komut girdiniz...\nKomut listesi icin /help yazabilirsiniz...\n");
 		
-	//}
+		//fflush(stdout);
+		//fflush(stdin);
+		
+	}
 	
 	 
 	
