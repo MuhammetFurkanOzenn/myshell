@@ -6,7 +6,7 @@
 
 #define clear() printf("\033[H\033[J")
 
-int main () {	//(int argc, char *argv[]){
+int main (int argc, char *argv[]){
 	
 	struct dirent *d;
 	const char * dir = ".";
@@ -23,6 +23,7 @@ int main () {	//(int argc, char *argv[]){
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
 	char _clear[]={'c','l','e','a','r','\0'};
 	char _ls[]={'l','s','\0'};
+	char _cat[]={'c','a','t','\0'};
 	
     	char * split;
     	char * word;
@@ -100,6 +101,21 @@ int main () {	//(int argc, char *argv[]){
 			}
 			printf("\n");	
 		}
+		
+		else if(strcmp(command_p1, _cat) == 0 && command_p3 == NULL){
+			FILE *file;
+			char ch;
+			
+		       // remember file should exist
+		       file = fopen(command_p2,"r");
+		       
+		       // reading file line by line entering to buffer line
+		       while((ch= fgetc(file)) !=EOF)
+		       {
+		              printf("%c", ch);
+		       }
+		       fclose(file);	// file close
+		}
 			
 		else if (strcmp(command_p1, _exit) == 0){
 			//break;
@@ -108,6 +124,8 @@ int main () {	//(int argc, char *argv[]){
 			printf("Yanlis bir komut girdiniz...\nKomut listesi icin /help yazabilirsiniz...\n");
 		
 	//}
+	
+	 
 	
 	
 		
