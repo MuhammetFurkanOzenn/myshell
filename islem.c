@@ -55,6 +55,17 @@ int main (int argc, char *argv[],char * envp){
 				
 	}else if (strcmp(argv[0], _cikar) == 0){
 		printf("cikardayiz...");
+		
+		char *newargv[3];
+	        int i;
+
+	        newargv[0] = argv[0]; //topla /cikar
+	        newargv[1] = argv[1]; 
+	        newargv[2] = argv[2];
+	        newargv[3] = NULL;
+	        
+		i = execve("cikar", newargv, envp);
+		
 	}else{
 		printf("su an burdasiniz...");
 	}
