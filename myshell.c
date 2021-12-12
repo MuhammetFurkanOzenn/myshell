@@ -75,25 +75,24 @@ int main (int argc, char argv[], char * envp){ //,
 		if(strcmp(command_p1, _bash) == 0 && command_p2 == NULL){
 			printf("Bash'a geciliyor...\n");
 			
-			/*char *newargv[3];
+			char *newargv[1];
 		    	newargv[0] = "bash";
-		    	newargv[1] = "NULL";
-		    	newargv[2] = "NULL";
-		    	newargv[3] = "NULL";
-		    	*/
-				
-			/*frk = fork();
+		    	
+			int frk;
+			int status;	
+			frk = fork();
 			if (frk == 0){
 				//printf("child pid : %d\n",getppid());
 				//sleep(5);
 				//printf("child pid after sleep: %d\n",getppid());	
-				printf("newargv ? : %s", newargv[0]);
-				execve("/bin/bash", newargv,NULL);
+				printf("newargv ? : %s\n", newargv[0]);
+				status = execve("/bin/bash", newargv,NULL);
+				perror("exec2: execve failed\n");
 			}
 			else{	
-				_wait = wait(&status);
+				wait(&status);
 				//printf("ppid : %d\n",getpid());
-			}	*/
+			}	
 		}
 		
 		else if(strcmp(command_p1, _tekrar) == 0  ){	
