@@ -33,10 +33,21 @@ int main (int argc, char *argv[]){
 	
 	int firstVal= strtoint(argv[1]);
 	int secondVal= strtoint(argv[2]);
-	
+	int result;
+	int pipefd[2];
+	int firstValP,secondValP;
 	if(firstVal == -1 || secondVal == -1)
 		printf("Yanlis bir deger girdiniz...\nOrnek komut: islem,topla,2,2\n");
 	else{
 		printf("%d + %d = %d\n",firstVal, secondVal, (firstVal+secondVal));
+		// Pipe yapisi
+		read(3, &firstValP, sizeof(result));
+		printf("firstValP :: %d\n",firstValP );
+		read(3, &secondValP, sizeof(result));
+		printf("secondValP :: %d\n",secondValP );
+		result = firstValP + secondValP;
+		
+		write(4,&result,sizeof(result));
+		
 	}	
 }

@@ -37,6 +37,17 @@ int main (int argc, char *argv[],char * envp){
 	
 	int firstVal= strtoint(argv[1]);
 	int secondVal= strtoint(argv[2]);
+	//**
+	int pipefd[2];
+	if(pipe(pipefd)<0){
+		perror("pipe");
+		exit(1);
+	}
+	//**
+	
+	 write(pipefd[1], &firstVal, sizeof(firstVal));
+        write(pipefd[1], &secondVal, sizeof(secondVal));
+	
 	if (strcmp(argv[0], _topla) == 0){	//topla ya da cikar
 		char *newargv[3];
 	        int i;
@@ -46,7 +57,26 @@ int main (int argc, char *argv[],char * envp){
 	        newargv[2] = argv[2];
 	        newargv[3] = NULL;
 	        
-		i = execve("topla", newargv, envp);
+	        //**
+	        
+	        
+	       
+	        //
+	        int res;
+	        int frk;
+		int status;	
+		frk = fork();
+		if (frk == 0){
+			status = execve("topla", newargv, envp);
+			perror("exec2: execve failed\n");
+		}
+		else{	
+			wait(&status); // wait the fork f=0
+			read(3, &res, sizeof(res));
+			printf("res :: %d\n\n",res);
+		}
+	        //
+		//i = execve("topla", newargv, envp);
 				
 	}else if (strcmp(argv[0], _cikar) == 0){
 		
@@ -58,7 +88,23 @@ int main (int argc, char *argv[],char * envp){
 	        newargv[2] = argv[2];
 	        newargv[3] = NULL;
 	        
-		i = execve("cikar", newargv, envp);
+	        //
+	        int res;
+	        int frk;
+		int status;	
+		frk = fork();
+		if (frk == 0){
+			status = execve("cikar", newargv, envp);
+			perror("exec2: execve failed\n");
+		}
+		else{	
+			wait(&status); // wait the fork f=0
+			read(3, &res, sizeof(res));
+			printf("res :: %d\n\n",res);
+		}
+	        
+	        //
+		//i = execve("cikar", newargv, envp);
 		
 	}else{
 		printf("Yanlis bir deger girdiniz...\nOrnek komut: islem,topla,2,2\n");
