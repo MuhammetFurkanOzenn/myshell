@@ -8,6 +8,7 @@
 
 int main (int argc, char argv[], char * envp){  
 	
+	// cat functionality's values
 	struct dirent *d;
 	const char * dir = ".";
 	DIR *dh = opendir(dir);
@@ -28,6 +29,7 @@ int main (int argc, char argv[], char * envp){
     	char _yardim[]={'!','y','a','r','d','i','m','\0'};
     	char _exit[]={'e','x','i','t','\0'};
     	
+    	// split functionality's values
     	char command[40];
 	char * split;
     	char * word;
@@ -35,6 +37,7 @@ int main (int argc, char argv[], char * envp){
     	char * command_p2;
     	char * command_p3;
     	char * command_p4;
+    	char * command_p5;
         
 	while (loop == 1){
 		
@@ -42,6 +45,7 @@ int main (int argc, char argv[], char * envp){
 		command_p2 =NULL;
 		command_p3 =NULL;
 		command_p4 =NULL;
+		command_p5 =NULL;
 		
 		printf("myshell>> ");
 		scanf("%s",command); // 29[^\n]
@@ -77,13 +81,19 @@ int main (int argc, char argv[], char * envp){
 		// word 4	
 	    	word=split;
 	    	split=strtok(NULL,",");
-		command_p4 = split;		
+		command_p4 = split;	
+		
+		// word 5	
+	    	word=split;
+	    	split=strtok(NULL,",");
+		command_p5 = split;	
 			
 		if(strcmp(command_p1, _bash) == 0 && command_p2 == NULL){
 			
 			char *newargv[1];
 		    	newargv[0] = "bash";
 		    	
+		    	printf("newargv : %s\n\n", newargv[1]);
 			int frk;
 			int status;	
 			frk = fork();
@@ -92,11 +102,11 @@ int main (int argc, char argv[], char * envp){
 				perror("exec2: execve failed\n");
 			}
 			else{	
-				wait(&status);
+				wait(&status); // wait the fork f=0
 			}	
 		}
 		
-		else if(strcmp(command_p1, _tekrar) == 0  ){	
+		else if(strcmp(command_p1, _tekrar) == 0  && command_p4 == NULL){	
 			
 		      char *newargv[2];
 		      int i;
@@ -112,17 +122,17 @@ int main (int argc, char argv[], char * envp){
 			  perror("exec2: execve failed\n");
 
 		      }else{
-			  wait(&i); // forku bekle
+			  //wait(&i); // wait the fork f=0
 
 		      }
 		}
 		
-		else if(strcmp(command_p1, _islem) == 0  ){	
+		else if(strcmp(command_p1, _islem) == 0  && command_p5 == NULL){	
 			
 		      char *newargv[3];
 		      int i;
 
-		      newargv[0] = command_p2; //topla /cikar
+		      newargv[0] = command_p2; //topla | cikar
 		      newargv[1] = command_p3; 
 		      newargv[2] = command_p4;
 		      newargv[3] = NULL;
@@ -134,7 +144,7 @@ int main (int argc, char argv[], char * envp){
 			  perror("exec2: execve failed\n");
 
 		      }else{
-			  wait(&i); // forku bekle
+			  wait(&i); // wait the fork f=0
 		      }
 		}
 		
@@ -182,6 +192,7 @@ int main (int argc, char argv[], char * envp){
 		}
 			
 		else if (strcmp(command_p1, _exit) == 0){
+			printf("Cikis yapiliyor...\n");
 			break;
 		}
 		else
