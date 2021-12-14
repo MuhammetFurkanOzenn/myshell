@@ -21,7 +21,6 @@ int strtoint( char* charnums)
          else
          {
             number=-1;
-            printf("\nGecersiz islem");
             break;
          }
  }
@@ -30,13 +29,15 @@ int strtoint( char* charnums)
 
 int main(int argc, char *argv[])
 {
-       printf("Alt program:getpid: %d  getpppid: %d\n", getpid(), getppid());
     int count= strtoint(argv[1]);
-    for (int i = 0; i < count; ++i) {
-           printf("%d %s\n",count, argv[0]);
+    
+    if(count == -1)
+    	printf("Yanlis bir deger girdiniz...\nOrnek komut: tekrar,masa,3\n");
+    else{
+    	for (int i = 0; i < count; ++i) {
+           printf("%s\n", argv[0]);
+    	}
     }
-
-
-
+    
     return 0;
 }

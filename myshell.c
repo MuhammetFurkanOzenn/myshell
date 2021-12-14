@@ -6,7 +6,7 @@
 
 #define clear() printf("\033[H\033[J")
 
-int main (int argc, char argv[], char * envp){ //, 
+int main (int argc, char argv[], char * envp){  
 	
 	struct dirent *d;
 	const char * dir = ".";
@@ -19,14 +19,14 @@ int main (int argc, char argv[], char * envp){ //,
         int _wait,status;
         int exv;
 	
-	char _exit[]={'e','x','i','t','\0'};
 	char _bash[]={'b','a','s','h','\0'};
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
+	char _islem[]={'i','s','l','e','m','\0'};
 	char _clear[]={'c','l','e','a','r','\0'};
 	char _ls[]={'l','s','\0'};
 	char _cat[]={'c','a','t','\0'};
-    	char _islem[]={'i','s','l','e','m','\0'};
     	char _yardim[]={'!','y','a','r','d','i','m','\0'};
+    	char _exit[]={'e','x','i','t','\0'};
     	
     	char command[40];
 	char * split;
@@ -44,8 +44,22 @@ int main (int argc, char argv[], char * envp){ //,
 		command_p4 =NULL;
 		
 		printf("myshell>> ");
-		scanf("%s",command); // 29[^\n]		
+		scanf("%s",command); // 29[^\n]
+		
+		// | parse
+		// 5 komut
+		//while (d1 != NULL || d2 != NULL )		
+        	/*
+        		if d1 null
+        		
+        		else if 
+        		
+        		else 
+        		
+        		else
         	
+        	*/
+	
 		// word 1
 	    	split=strtok(command,",");
 		command_p1 = split;
@@ -171,11 +185,10 @@ int main (int argc, char argv[], char * envp){ //,
 			break;
 		}
 		else
-			printf("Yanlis bir komut girdiniz...\nKomut listesi icin /help yazabilirsiniz...\n");
+			printf("Yanlis bir komut girdiniz...\nKomut listesi icin !yardim yazabilirsiniz...\n");
 		
 		//fflush(stdout);
 		//fflush(stdin);
-		
 	}
 	
    return 0;

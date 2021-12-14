@@ -23,27 +23,20 @@ int strtoint( char* charnums)
          else
          {
             number=-1;
-            printf("\nGecersiz islem");
             break;
          }
  }
  return number;
 }
 
-
 int main (int argc, char *argv[]){   
 	
 	int firstVal= strtoint(argv[1]);
 	int secondVal= strtoint(argv[2]);
-	printf("cikara cikara geldik..\n");
-	printf("%d - %d = %d\n",firstVal, secondVal, (firstVal-secondVal));
 	
-	/*try{
-		//cikar
+	if(firstVal == -1 || secondVal == -1)
+		printf("Yanlis bir deger girdiniz...\nOrnek komut: islem,topla,2,2\n");
+	else{
+		printf("%d - %d = %d\n",firstVal, secondVal, (firstVal-secondVal));
 	}
-	catch{
-		//error
-	}*/
-
-	
 }

@@ -23,13 +23,11 @@ int strtoint( char* charnums)
          else
          {
             number=-1;
-            printf("\nGecersiz islem");
             break;
          }
  }
  return number;
 }
-
 
 int main (int argc, char *argv[],char * envp){
 	
@@ -39,14 +37,11 @@ int main (int argc, char *argv[],char * envp){
 	
 	int firstVal= strtoint(argv[1]);
 	int secondVal= strtoint(argv[2]);
-	printf("Isleme geldik..\n");
-	printf("arg1 : %d   arg2 : %d\n",firstVal, secondVal);
 	if (strcmp(argv[0], _topla) == 0){	//topla ya da cikar
-		printf("topladayiz...");
 		char *newargv[3];
 	        int i;
 
-	        newargv[0] = argv[0]; //topla /cikar
+	        newargv[0] = argv[0]; //topla | cikar
 	        newargv[1] = argv[1]; 
 	        newargv[2] = argv[2];
 	        newargv[3] = NULL;
@@ -54,12 +49,11 @@ int main (int argc, char *argv[],char * envp){
 		i = execve("topla", newargv, envp);
 				
 	}else if (strcmp(argv[0], _cikar) == 0){
-		printf("cikardayiz...");
 		
 		char *newargv[3];
 	        int i;
 
-	        newargv[0] = argv[0]; //topla /cikar
+	        newargv[0] = argv[0]; //topla | cikar
 	        newargv[1] = argv[1]; 
 	        newargv[2] = argv[2];
 	        newargv[3] = NULL;
@@ -67,17 +61,6 @@ int main (int argc, char *argv[],char * envp){
 		i = execve("cikar", newargv, envp);
 		
 	}else{
-		printf("su an burdasiniz...");
-	}
-	
-	
+		printf("Yanlis bir deger girdiniz...\nOrnek komut: islem,topla,2,2\n");
+	}	
 }
-
-/*
-printf("Alt program:getpid: %d  getpppid: %d\n", getpid(), getppid());
-    int count= strtoint(argv[1]);
-    for (int i = 0; i < count; ++i) {
-           printf("%d %s\n",count, argv[0]);
-    }
-
-*/
