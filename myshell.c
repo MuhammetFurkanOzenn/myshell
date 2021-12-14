@@ -80,7 +80,7 @@ int main (int argc, char argv[], char * envp){
 			char *newargv[1];
 		    	newargv[0] = "bash";
 		    	
-		    	printf("newargv : %s\n\n", newargv[1]);
+		    	//printf("newargv : %s\n\n", newargv[1]);
 			int frk;
 			int status;	
 			frk = fork();
