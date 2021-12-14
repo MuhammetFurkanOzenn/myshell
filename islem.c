@@ -37,16 +37,17 @@ int main (int argc, char *argv[],char * envp){
 	
 	int firstVal= strtoint(argv[1]);
 	int secondVal= strtoint(argv[2]);
-	//**
+	
 	int pipefd[2];
+	//pipe open or make error
 	if(pipe(pipefd)<0){
 		perror("pipe");
 		exit(1);
 	}
-	//**
 	
-	 write(pipefd[1], &firstVal, sizeof(firstVal));
-        write(pipefd[1], &secondVal, sizeof(secondVal));
+	// write values to pipe for send to topla or cikar
+	write(pipefd[1], &firstVal, sizeof(firstVal)); 
+	write(pipefd[1], &secondVal, sizeof(secondVal));
 	
 	if (strcmp(argv[0], _topla) == 0){	//topla ya da cikar
 		char *newargv[3];
@@ -56,12 +57,7 @@ int main (int argc, char *argv[],char * envp){
 	        newargv[1] = argv[1]; 
 	        newargv[2] = argv[2];
 	        newargv[3] = NULL;
-	        
-	        //**
-	        
-	        
-	       
-	        //
+	
 	        int res;
 	        int frk;
 		int status;	
@@ -72,11 +68,9 @@ int main (int argc, char *argv[],char * envp){
 		}
 		else{	
 			wait(&status); // wait the fork f=0
-			read(3, &res, sizeof(res));
-			printf("res :: %d\n\n",res);
+			read(3, &res, sizeof(res)); //take response from topla
+			printf("%d + %d = %d\n",firstVal,secondVal,res);
 		}
-	        //
-		//i = execve("topla", newargv, envp);
 				
 	}else if (strcmp(argv[0], _cikar) == 0){
 		
@@ -99,12 +93,9 @@ int main (int argc, char *argv[],char * envp){
 		}
 		else{	
 			wait(&status); // wait the fork f=0
-			read(3, &res, sizeof(res));
-			printf("res :: %d\n\n",res);
+			read(3, &res, sizeof(res));//take response from cikar
+			printf("%d - %d = %d\n",firstVal,secondVal,res);
 		}
-	        
-	        //
-		//i = execve("cikar", newargv, envp);
 		
 	}else{
 		printf("Yanlis bir deger girdiniz...\nOrnek komut: islem,topla,2,2\n");

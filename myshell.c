@@ -19,7 +19,8 @@ int main (int argc, char argv[], char * envp){
         int frk;
         int _wait,status;
         int exv;
-	
+        
+	// commands 
 	char _bash[]={'b','a','s','h','\0'};
 	char _tekrar[]={'t','e','k','r','a','r','\0'};
 	char _islem[]={'i','s','l','e','m','\0'};
@@ -33,14 +34,14 @@ int main (int argc, char argv[], char * envp){
     	char command[40];
 	char * split;
     	char * word;
-    	char * command_p1;
+    	char * command_p1;	// Parts of command
     	char * command_p2;
     	char * command_p3;
     	char * command_p4;
     	char * command_p5;
         
 	while (loop == 1){
-		
+		// parts of command be NULL for each iteration
 		command_p1 =NULL;
 		command_p2 =NULL;
 		command_p3 =NULL;
@@ -49,20 +50,6 @@ int main (int argc, char argv[], char * envp){
 		
 		printf("myshell>> ");
 		scanf("%s",command); // 29[^\n]
-		
-		// | parse
-		// 5 komut
-		//while (d1 != NULL || d2 != NULL )		
-        	/*
-        		if d1 null
-        		
-        		else if 
-        		
-        		else 
-        		
-        		else
-        	
-        	*/
 	
 		// word 1
 	    	split=strtok(command,",");
@@ -128,7 +115,6 @@ int main (int argc, char argv[], char * envp){
 		}
 		
 		else if(strcmp(command_p1, _islem) == 0  && command_p5 == NULL){	
-			
 		      char *newargv[3];
 		      int i;
 
@@ -136,7 +122,8 @@ int main (int argc, char argv[], char * envp){
 		      newargv[1] = command_p3; 
 		      newargv[2] = command_p4;
 		      newargv[3] = NULL;
-		      
+
+		      int result;
 		      int f;
 		      f= fork();
 		      if(f==0){
@@ -197,9 +184,7 @@ int main (int argc, char argv[], char * envp){
 		}
 		else
 			printf("Yanlis bir komut girdiniz...\nKomut listesi icin !yardim yazabilirsiniz...\n");
-		
-		//fflush(stdout);
-		//fflush(stdin);
+
 	}
 	
    return 0;
